@@ -17,6 +17,7 @@ In addition to basic shell functionalities, I implemented the following bonus fe
 
 ### Basic Shell Functionality
 
+- **Abstract Syntax Tree**: Parses the user input creating an abstract syntax tree for execution
 - **Command Execution**: Reads user input, parses it, and executes commands accordingly.
 - **Pipes**: Supports piping between commands using `|` to pass the output of one command as input to another.
 - **Redirections**: Handles redirection operators (`>`, `>>`, `<`) for both input and output redirection.
@@ -34,10 +35,6 @@ In addition to basic shell functionalities, I implemented the following bonus fe
    - Commands enclosed in parentheses are grouped and executed in a subshell. This allows users to run multiple commands in a single line, with the grouping affecting only the execution context inside the parentheses.
    - Example: `(cd /home; ls)` will first `cd` into `/home` and then execute `ls` in the same command.
 
-3. **Input Parsing with Abstract Syntax Tree (AST)**:
-   - The shell builds an Abstract Syntax Tree (AST) from the user input. The AST represents the structure of the command line input, allowing the shell to handle operators, redirections, and parentheses correctly.
-   - Parsing the input into an AST simplifies the process of evaluating and executing commands, and ensures correct handling of operator precedence and command grouping.
-
 ---
 
 ## 🧑‍💻 Implementation Details
@@ -48,18 +45,6 @@ The project was developed using **C** and includes the following core functional
 - **Command Execution**: For each command, the shell creates child processes using `fork()` and `execvp()` for execution. Redirection and piping are handled by manipulating file descriptors using `dup2()`.
 - **Wildcards**: The shell uses the `glob()` function to expand wildcard characters into matching filenames.
 - **Signal Handling**: Custom handling of signals like `SIGINT` (Ctrl+C) and `SIGQUIT` ensures that the shell behaves correctly when interrupted.
-
----
-
-## 🔧 Files
-
-- **`minishell.c`**: The main file containing the shell's execution loop and setup.
-- **`parser.c`**: Functions for parsing user input and constructing the Abstract Syntax Tree (AST).
-- **`exec.c`**: Functions for executing commands, handling redirections, and managing child processes.
-- **`builtins.c`**: Implements the built-in commands such as `cd`, `echo`, and `exit`.
-- **`wildcard.c`**: Handles wildcard expansion using `glob()`.
-- **`signals.c`**: Custom signal handling logic for graceful shutdowns and managing `Ctrl+C` behavior.
-- **`Makefile`**: Automates the build process for the project.
 
 ---
 
